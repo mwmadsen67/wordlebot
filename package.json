@@ -1,0 +1,11 @@
+{
+  "name": "wordlebot",
+  "version": "1.0.0",
+  "description": "word generator for wordle",
+  "main": "bot.js",
+  "author": "Mike Madsen",
+  "dependencies": {
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "winston": "^3.5.1"
+  }
+}
