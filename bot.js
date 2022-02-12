@@ -4,6 +4,7 @@ var auth = require('./auth.json');
 var fs = require('fs');
 
 let wordList = fs.readFileSync('wordsList.txt', 'utf8').split('\n');
+let mechWords = fs.readFileSync('mechWords.txt', 'utf8').split(' ');
 
 // Configure logger settings
 
@@ -45,7 +46,8 @@ bot.on('ready', function (evt) {
 
 // }
 
-var dailyWords = [];
+var dailyWords = mechWords ? mechWords : [];
+
 
 bot.on('message', function (user, userID, channelID, message, evt) {
 
@@ -72,7 +74,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             
         break;
         case 'show':
-          console.log(dailyWords);
           sendMessage(channelID, dailyWords.join(" "));
         break;
         case 'pick':
@@ -81,7 +82,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
         case 'getgood':
           var goodWord = wordList[Math.floor(Math.random() * wordList.length)];
-          sendMessage(goodWord);
+          sendMessage(channelID, goodWord);
         break;
         case 'help':
           sendMessage(channelID, helpCommands);
@@ -98,7 +99,6 @@ function sendMessage(channelID, message) {
 }
 
 const helpCommands = "commands: \n"
-  + "!ping - says pong\n"
   + "!add - adds a word to the list\n"
   + "!show - shows all added words\n"
   + "!pick - picks a word from the list at random\n"
